@@ -20,7 +20,7 @@ Guia completo para resolver problemas específicos do Fedora ao usar Docker e Do
 
 ### O que é SELinux?
 
-**SELinux (Security-Enhanced Linux)** é um sistema de controle de acesso obrigatório no kernel do Linux. O Fedora utiliza SELinux por padrão, o que é mais seguro, mas também mais complexo que outras distribuições.
+**SELinux (Security-Enhanced Linux)** é um sistema de controle de acesso obrigatório no kernel do Linux. O l utiliza SELinux por padrão, o que é mais seguro, mas também mais complexo que outras distriuições.
 
 ### Diferenças: Fedora vs Ubuntu
 
