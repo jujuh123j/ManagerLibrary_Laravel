@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividade Prática - Laravel e Git</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        
+        .section h3 {
+            color: #764ba2;
+            margin: 20px 0 10px 0;
+            font-size: 1.4em;
+        }
+        
+        .objectives {
+            background: #e7f3ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .objectives ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .objectives li:before {
+            content: "✓ ";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            position: relative;
+        }
+        
+        .code-block::before {
+            content: "Código";
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            font-size: 0.8em;
+            border-top-right-radius: 8px;
+        }
+        
+        .code-block code {
+            color: #f8f8f2;
+        }
+        
+        .command {
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .alert {
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        
+        .alert-info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+        
+        .alert-warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        
+        .step {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: #667eea;
+            color: white;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        
+        .highlight {
+            background: yellow;
+            padding: 2px 5px;
+            font-weight: bold;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background: #667eea;
+            color: white;
+        }
+        
+        tr:hover {
+            background: #f5f5f5;
+        }
+        
+        .footer {
+            background: #2d2d2d;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        @media print {
+            body { background: white; }
+            .section { break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 Atividade Prática: Laravel + Git</h1>
+            <p>Curso Técnico em ADS - Desenvolvimento Web com MVC</p>
+            <p><strong>Atividade em Dupla</strong></p>
+        </div>
+        
+        <div class="content">
+            <!-- Objetivos -->
+            <div class="section">
+                <h2>📋 Objetivos de Aprendizagem</h2>
+                <div class="objectives">
+                    <ul>
+                        <li>Compreender e aplicar o padrão MVC (Model-View-Controller)</li>
+                        <li>Utilizar o framework Laravel para desenvolvimento web</li>
+                        <li>Implementar mapeamento objeto-relacional (ORM) com Eloquent</li>
+                        <li>Configurar rotas e mapeamento de URLs</li>
+                        <li>Versionar código utilizando Git e GitHub</li>
+                        <li>Trabalhar em equipe com controle de versão</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Descrição -->
+            <div class="section">
+                <h2>📝 Descrição da Atividade</h2>
+                <p>Vocês deverão criar um <strong>Sistema de Gerenciamento de Livros</strong> (Biblioteca Digital) utilizando Laravel. O sistema permitirá cadastrar, listar, editar e excluir livros.</p>
+                
+                <div class="alert alert-info">
+                    <strong>💡 Dica:</strong> Trabalhem em pares! Um colega cria o repositório e convida o outro como colaborador.
+                </div>
+            </div>
+
+            <!-- Pré-requisitos -->
+            <div class="section">
+                <h2>⚙️ Pré-requisitos</h2>
+                <div class="step">
+                    <span class="step-number">0</span>
+                    <strong>Instalações necessárias:</strong>
+                    <ul style="margin-top: 10px; margin-left: 50px;">
+                        <li>PHP 8.0 ou superior</li>
+                        <li>Composer</li>
+                        <li>Git instalado</li>
+                        <li>Conta no GitHub</li>
+                        <li>VS Code ou outro editor</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Passo a Passo -->
+            <div class="section">
+                <h2>🚀 Passo a Passo</h2>
+
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Criando o Projeto Laravel</strong>
+                    <p>Abra o terminal e execute:</p>
+                    <div class="command">
+                        composer create-project laravel/laravel biblioteca
+                        <br>cd biblioteca
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Configurando o Banco de Dados</strong>
+                    <p>Edite o arquivo <code>.env</code>:</p>
+                    <div class="code-block">
+                        <code>
+DB_CONNECTION=sqlite<br>
+# Ou use MySQL:<br>
+# DB_CONNECTION=mysql<br>
+# DB_DATABASE=biblioteca<br>
+# DB_USERNAME=root<br>
+# DB_PASSWORD=
+                        </code>
+                    </div>
+                    <p>Para SQLite, crie o arquivo:</p>
+                    <div class="command">
+                        touch database/database.sqlite
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Criando o Model e Migration</strong>
+                    <p>Execute no terminal:</p>
+                    <div class="command">
+                        php artisan make:model Book -mcr
+                    </div>
+                    <div class="alert alert-info">
+                        <strong>-m</strong> = cria migration<br>
+                        <strong>-c</strong> = cria controller<br>
+                        <strong>-r</strong> = controller com recursos (CRUD completo)
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Configurando a Migration</strong>
+                    <p>Edite o arquivo em <code>database/migrations/xxxx_create_books_table.php</code>:</p>
+                    <div class="code-block">
+                        <code>
+&lt;?php<br><br>
+use Illuminate\\Database\\Migrations\\Migration;<br>
+use Illuminate\\Database\\Schema\\Blueprint;<br>
+use Illuminate\\Support\\Facades\\Schema;<br><br>
+return new class extends Migration<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;public function up(): void<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Schema::create('books', function (Blueprint $table) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$table->id();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$table->string('title');<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$table->string('author');<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$table->string('isbn')->unique();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$table->integer('pages');<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$table->decimal('price', 8, 2);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$table->timestamps();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;public function down(): void<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Schema::dropIfExists('books');<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+};
+                        </code>
+                    </div>
+                    <p>Aplique a migration:</p>
+                    <div class="command">
+                        php artisan migrate
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">5</span>
+                    <strong>Configurando o Model (ORM)</strong>
+                    <p>Edite <code>app/Models/Book.php</code>:</p>
+                    <div class="code-block">
+                        <code>
+&lt;?php<br><br>
+namespace App\\Models;<br><br>
+use Illuminate\\Database\\Eloquent\\Model;<br><br>
+class Book extends Model<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;// Campos que podem ser preenchidos em massa<br>
+&nbsp;&nbsp;&nbsp;&nbsp;protected $fillable = [<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'title',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'author',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'isbn',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'pages',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'price'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;];<br>
+}
+                        </code>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">6</span>
+                    <strong>Configurando as Rotas</strong>
+                    <p>Edite <code>routes/web.php</code>:</p>
+                    <div class="code-block">
+                        <code>
+&lt;?php<br><br>
+use Illuminate\\Support\\Facades\\Route;<br>
+use App\\Http\\Controllers\\BookController;<br><br>
+// Rota principal<br>
+Route::get('/', function () {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return view('welcome');<br>
+});<br><br>
+// Rotas resource para Books (CRUD completo)<br>
+Route::resource('books', BookController::class);
+                        </code>
+                    </div>
+                    <div class="alert alert-success">
+                        <strong>Rotas criadas automaticamente:</strong><br>
+                        GET /books (listar) | POST /books (criar)<br>
+                        GET /books/create (form criar) | GET /books/{id} (mostrar)<br>
+                        GET /books/{id}/edit (form editar) | PUT /books/{id} (atualizar)<br>
+                        DELETE /books/{id} (excluir)
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">7</span>
+                    <strong>Controller - Métodos CRUD</strong>
+                    <p>Edite <code>app/Http/Controllers/BookController.php</code>:</p>
+                    <div class="code-block">
+                        <code>
+&lt;?php<br><br>
+namespace App\\Http\\Controllers;<br><br>
+use App\\Models\\Book;<br>
+use Illuminate\\Http\\Request;<br><br>
+class BookController extends Controller<br>
+{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;// Listar todos os livros<br>
+&nbsp;&nbsp;&nbsp;&nbsp;public function index()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$books = Book::all();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return view('books.index', compact('books'));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;// Mostrar formulário de criação<br>
+&nbsp;&nbsp;&nbsp;&nbsp;public function create()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return view('books.create');<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;// Salvar novo livro<br>
+&nbsp;&nbsp;&nbsp;&nbsp;public function store(Request $request)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$request->validate([<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'title' => 'required|max:255',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'author' => 'required',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'isbn' => 'required|unique:books',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'pages' => 'required|integer',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'price' => 'required|numeric'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]);<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Book::create($request->all());<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return redirect()->route('books.index')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;->with('success', 'Livro cadastrado com sucesso!');<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;// Mostrar um livro específico<br>
+&nbsp;&nbsp;&nbsp;&nbsp;public function show(Book $book)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return view('books.show', compact('book'));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;// Mostrar formulário de edição<br>
+&nbsp;&nbsp;&nbsp;&nbsp;public function edit(Book $book)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return view('books.edit', compact('book'));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;// Atualizar livro<br>
+&nbsp;&nbsp;&nbsp;&nbsp;public function update(Request $request, Book $book)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$request->validate([<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'title' => 'required|max:255',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'author' => 'required',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'isbn' => 'required|unique:books,isbn,'.$book->id,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'pages' => 'required|integer',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'price' => 'required|numeric'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]);<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$book->update($request->all());<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return redirect()->route('books.index')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;->with('success', 'Livro atualizado com sucesso!');<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;// Excluir livro<br>
+&nbsp;&nbsp;&nbsp;&nbsp;public function destroy(Book $book)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$book->delete();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return redirect()->route('books.index')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;->with('success', 'Livro excluído com sucesso!');<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}
+                        </code>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">8</span>
+                    <strong>Criando as Views</strong>
+                    <p>Crie a pasta <code>resources/views/books</code> e os arquivos:</p>
+                    
+                    <h3>Layout Principal (resources/views/layouts/app.blade.php)</h3>
+                    <div class="code-block">
+                        <code>
+&lt;!DOCTYPE html&gt;<br>
+&lt;html lang="pt-BR"&gt;<br>
+&lt;head&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;@yield('title', 'Biblioteca')&lt;/title&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"&gt;<br>
+&lt;/head&gt;<br>
+&lt;body&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;nav class="navbar navbar-expand-lg navbar-dark bg-primary"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="container"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;a class="navbar-brand" href="{{ route('books.index') }}"&gt;📚 Biblioteca&lt;/a&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/nav&gt;<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="container mt-4"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@if(session('success'))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="alert alert-success"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ session('success') }}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@endif<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@yield('content')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"&gt;&lt;/script&gt;<br>
+&lt;/body&gt;<br>
+&lt;/html&gt;
+                        </code>
+                    </div>
+
+                    <h3>Index - Listagem (resources/views/books/index.blade.php)</h3>
+                    <div class="code-block">
+                        <code>
+@extends('layouts.app')<br><br>
+@section('title', 'Lista de Livros')<br><br>
+@section('content')<br>
+&lt;div class="d-flex justify-content-between align-items-center mb-4"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;📖 Livros Cadastrados&lt;/h1&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;a href="{{ route('books.create') }}" class="btn btn-success"&gt;+ Novo Livro&lt;/a&gt;<br>
+&lt;/div&gt;<br><br>
+&lt;table class="table table-striped"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;thead&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;ID&lt;/th&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;Título&lt;/th&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;Autor&lt;/th&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;ISBN&lt;/th&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;Páginas&lt;/th&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;Preço&lt;/th&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;Ações&lt;/th&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/thead&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;tbody&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@forelse($books as $book)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;{{ $book->id }}&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;{{ $book->title }}&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;{{ $book->author }}&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;{{ $book->isbn }}&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;{{ $book->pages }}&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;R$ {{ number_format($book->price, 2, ',', '.') }}&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;a href="{{ route('books.show', $book) }}" class="btn btn-sm btn-info"&gt;Ver&lt;/a&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;a href="{{ route('books.edit', $book) }}" class="btn btn-sm btn-warning"&gt;Editar&lt;/a&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;form action="{{ route('books.destroy', $book) }}" method="POST" style="display:inline"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@csrf<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@method('DELETE')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;button type="submit" class="btn btn-sm btn-danger" <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;onclick="return confirm('Tem certeza?')"&gt;Excluir&lt;/button&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/form&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@empty<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td colspan="7" class="text-center"&gt;Nenhum livro cadastrado&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@endforelse<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tbody&gt;<br>
+&lt;/table&gt;<br>
+@endsection
+                        </code>
+                    </div>
+
+                    <h3>Create - Formulário (resources/views/books/create.blade.php)</h3>
+                    <div class="code-block">
+                        <code>
+@extends('layouts.app')<br><br>
+@section('title', 'Cadastrar Livro')<br><br>
+@section('content')<br>
+&lt;h1&gt;📝 Cadastrar Novo Livro&lt;/h1&gt;<br><br>
+&lt;form action="{{ route('books.store') }}" method="POST"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;@csrf<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="mb-3"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;label class="form-label"&gt;Título&lt;/label&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;input type="text" name="title" class="form-control" required&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="mb-3"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;label class="form-label"&gt;Autor&lt;/label&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;input type="text" name="author" class="form-control" required&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="mb-3"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;label class="form-label"&gt;ISBN&lt;/label&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;input type="text" name="isbn" class="form-control" required&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="mb-3"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;label class="form-label"&gt;Páginas&lt;/label&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;input type="number" name="pages" class="form-control" required&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="mb-3"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;label class="form-label"&gt;Preço&lt;/label&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;input type="number" step="0.01" name="price" class="form-control" required&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;button type="submit" class="btn btn-primary"&gt;Salvar&lt;/button&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;a href="{{ route('books.index') }}" class="btn btn-secondary"&gt;Cancelar&lt;/a&gt;<br>
+&lt;/form&gt;<br>
+@endsection
+                        </code>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">9</span>
+                    <strong>Testando a Aplicação</strong>
+                    <p>Inicie o servidor de desenvolvimento:</p>
+                    <div class="command">
+                        php artisan serve
+                    </div>
+                    <p>Acesse: <strong>http://localhost:8000/books</strong></p>
+                </div>
+            </div>
+
+            <!-- Git e GitHub -->
+            <div class="section">
+                <h2>🔄 Versionando com Git e GitHub</h2>
+
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>Inicializando o Git (Aluno 1)</strong>
+                    <div class="command">
+                        git init<br>
+                        git add .<br>
+                        git commit -m "Primeiro commit - Projeto Biblioteca Laravel"<br><br>
+                        # Crie o repositório no GitHub e adicione:<br>
+                        git remote add origin https://github.com/SEU_USUARIO/biblioteca.git<br>
+                        git branch -M main<br>
+                        git push -u origin main
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Adicionando Colaborador (no GitHub)</strong>
+                    <div class="alert alert-info">
+                        <ol>
+                            <li>Vá em Settings do repositório</li>
+                            <li>Clique em "Collaborators"</li>
+                            <li>Adicione o usuário do GitHub do seu colega</li>
+                            <li>Ele receberá um convite por email</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Clonando o Repositório (Aluno 2)</strong>
+                    <div class="command">
+                        git clone https://github.com/USUARIO/biblioteca.git<br>
+                        cd biblioteca<br>
+                        composer install<br>
+                        cp .env.example .env<br>
+                        php artisan key:generate<br>
+                        php artisan migrate
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <strong>Fluxo de Trabalho em Equipe</strong>
+                    <div class="code-block">
+                        <code>
+# Sempre antes de começar a trabalhar:<br>
+git pull origin main<br><br>
+# Após fazer alterações:<br>
+git add .<br>
+git commit -m "Descrição das alterações"<br>
+git push origin main<br><br>
+# Em caso de conflito:<br>
+git pull origin main<br>
+# Resolva os conflitos manualmente<br>
+git add .<br>
+git commit -m "Resolvendo conflitos"<br>
+git push origin main
+                        </code>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <span class="step-number">5</span>
+                    <strong>.gitignore - Arquivo Importante</strong>
+                    <p>O Laravel já cria um .gitignore, mas verifique se contém:</p>
+                    <div class="code-block">
+                        <code>
+/node_modules<br>
+/public/hot<br>
+/public/storage<br>
+/storage/*.key<br>
+/vendor<br>
+.env<br>
+.env.backup<br>
+.phpunit.result.cache<br>
+Homestead.json<br>
+Homestead.yaml<br>
+npm-debug.log<br>
+yarn-error.log
+                        </code>
+                    </div>
+                    <div class="alert alert-warning">
+                        <strong>⚠️ Atenção:</strong> Nunca compartilhe o arquivo .env no Git! Ele contém senhas e chaves secretas.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Entrega -->
+            <div class="section">
+                <h2>📦 Critérios de Entrega</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Critério</th>
+                            <th>Pontuação</th>
+                            <th>Descrição</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>✅ Funcionalidade CRUD</td>
+                            <td>3,0 pontos</td>
+                            <td>Todas as operações funcionando</td>
+                        </tr>
+                        <tr>
+                            <td>✅ MVC Correto</td>
+                            <td>2,0 pontos</td>
+                            <td>Separacao adequada Model-View-Controller</td>
+                        </tr>
+                        <tr>
+                            <td>✅ ORM/Eloquent</td>
+                            <td>2,0 pontos</td>
+                            <td>Uso correto do Eloquent</td>
+                        </tr>
+                        <tr>
+                            <td>✅ Rotas</td>
+                            <td>1,5 pontos</td>
+                            <td>Rotas configuradas corretamente</td>
+                        </tr>
+                        <tr>
+                            <td>✅ Git/GitHub</td>
+                            <td>1,5 pontos</td>
+                            <td>Commits organizados e repositório</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="alert alert-success">
+                    <strong>📝 Para entrega, envie:</strong>
+                    <ol style="margin-top: 10px;">
+                        <li>Link do repositório GitHub (ambos como colaboradores)</li>
+                        <li>README.md com instruções de instalação</li>
+                        <li>Capturas de tela do sistema funcionando</li>
+                        <li>Nome completo de ambos os integrantes</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Dicas -->
+            <div class="section">
+                <h2>💡 Dicas Importantes</h2>
+                <ul style="margin-left: 20px;">
+                    <li style="margin: 10px 0;"><strong>Comunicação:</strong> Combinem quem faz o quê antes de começar</li>
+                    <li style="margin: 10px 0;"><strong>Commits frequentes:</strong> Façam commits pequenos e descritivos</li>
+                    <li style="margin: 10px 0;"><strong>Testem sempre:</strong> Testem cada funcionalidade antes de fazer commit</li>
+                    <li style="margin: 10px 0;"><strong>Git Pull:</strong> Sempre façam pull antes de começar a trabalhar</li>
+                    <li style="margin: 10px 0;"><strong>Documentação:</strong> Comentem o código quando necessário</li>
+                    <li style="margin: 10px 0;"><strong>Dúvidas:</strong> Consultem a documentação oficial do Laravel: <a href="https://laravel.com/docs" target="_blank">laravel.com/docs</a></li>
+                </ul>
+            </div>
+
+            <!-- Comandos Úteis -->
+            <div class="section">
+                <h2>🛠️ Comandos Úteis do Laravel</h2>
+                <div class="code-block">
+                    <code>
+# Criar controller<br>
+php artisan make:controller NomeController<br><br>
+# Criar model com migration<br>
+php artisan make:model Nome -m<br><br>
+# Criar migration<br>
+php artisan make:migration create_tabela_table<br><br>
+# Rodar migrations<br>
+php artisan migrate<br><br>
+# Desfazer última migration<br>
+php artisan migrate:rollback<br><br>
+# Limpar cache<br>
+php artisan cache:clear<br>
+php artisan config:clear<br>
+php artisan route:clear<br><br>
+# Listar rotas<br>
+php artisan route:list<br><br>
+# Modo manutenção<br>
+php artisan down<br>
+php artisan up
+                    </code>
+                    </div>
+            </div>
+
+            <!-- Recursos -->
+            <div class="section">
+                <h2>📚 Recursos de Apoio</h2>
+                <ul style="margin-left: 20px;">
+                    <li style="margin: 10px 0;"><a href="https://laravel.com/docs" target="_blank">📖 Documentação Oficial Laravel</a></li>
+                    <li style="margin: 10px 0;"><a href="https://git-scm.com/doc" target="_blank">📖 Documentação Git</a></li>
+                    <li style="margin: 10px 0;"><a href="https://www.youtube.com/results?search_query=laravel+tutorial+portuguese" target="_blank">🎥 Tutoriais em Português</a></li>
+                    <li style="margin: 10px 0;"><a href="https://stackoverflow.com/questions/tagged/laravel" target="_blank">❓ Stack Overflow - Laravel</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>Bom trabalho! 🚀</strong></p>
+            <p>Qualquer dúvida, consultem o professor ou monitores.</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">
+                Desenvolvido para a disciplina de Desenvolvimento Web - Curso Técnico em ADS
+            </p>
+        </div>
+    </div>
+</body>
+</html>
